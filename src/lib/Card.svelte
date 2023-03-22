@@ -5,10 +5,10 @@
   import { tilt } from "./effects.js";
   import QrCode from "svelte-qrcode";
 
-  const isMobile = window.matchMedia('only screen and ((max-width: 767px) or (max-height: 767px))').matches;
+  const isTouchDevice = ('ontouchstart' in document.documentElement);
 
   const tiltOptions = {
-    scale: isMobile ? 1.0 : 1.1,
+    scale: isTouchDevice ? 1.0 : 1.1,
   }
 
   let cardHeight;
@@ -60,10 +60,10 @@
 	});
 
   // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
-  const hoverOpacity = isMobile ? 0 : 1;
+  const hoverOpacity = isTouchDevice ? 0 : 1;
   const mouse = { x: 0, y: 0 }
   const handleMousemove = event => {
-    if (isMobile) return false;
+    if (isTouchDevice) return false;
 
     const { currentTarget: target } = event;
     const rect = target.getBoundingClientRect();
