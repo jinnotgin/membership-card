@@ -1,0 +1,140 @@
+<script>
+  // TODO: 3D Tilting Card Effect with Mouse Tracking https://www.youtube.com/watch?v=Z-3tPXf9a7M OR https://www.youtube.com/watch?v=eOJTj_mWJds
+  // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
+
+  import { tilt } from "./effects.js"
+
+  let cardHeight;
+  let cardWidth;
+
+  const _dispatchResize = () => {
+    const ratio = 0.85;
+
+    cardHeight = window.innerHeight * ratio;
+    cardWidth = cardHeight * ratio / 3.5 * 2.5;
+    if (cardWidth > window.innerWidth) {
+      cardWidth = window.innerWidth * ratio;
+      cardHeight = cardWidth / 2.5 * 3.5;
+    }
+  }
+
+  let dispatchResize_timeout;
+  const dispatchResize = () => {
+    clearInterval(dispatchResize_timeout);
+    dispatchResize_timeout = setTimeout(_dispatchResize, 400);
+  }
+  dispatchResize();
+
+  const tiltOptions = {
+    scale: 1.1,
+    glare: true,
+    "max-glare": 0.8,
+  }
+</script>
+
+<svelte:window on:resize={dispatchResize} />
+
+<div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
+  <div class="card-content">
+    <img class="card-image" src="https://picsum.photos/2000" alt="QR Code"/>
+    <div class="card-descriptor">
+      <div class="card-descriptor-left">
+        <h1>Jin</h1>
+        <h2>Sincere Wizard</h2>
+        <div class="event-details-bar">
+          <span class="text">21 May 23</span>
+          <div class="seperator"></div>
+          <span class="text">1:30pm</span>
+        </div>  
+      </div>
+      <div class="card-descriptor-right">
+        <img class="ufinity-logo" alt="Ufinity Logo" src="https://media.glassdoor.com/sqll/385955/ufinity-singapore-squareLogo-1667211661299.png" />
+      </div>  
+    </div>   
+  </div> 
+  
+</div>
+
+
+<style>
+  .card-container {
+    height: calc( var(--cardHeight) );
+    width: calc( var(--cardWidth) );
+    border: 1px solid lightgrey;
+    border-radius: calc( var(--cardWidth) * 0.05);;
+    background: rgb(255, 252, 232);
+    display: flex;
+  }
+
+  .card-content {
+    margin: calc( var(--cardWidth) * 0.1 / 2);
+    height: 100%; 
+  }
+  
+  .card-image {
+    height: calc( var(--cardWidth) * 0.9);
+    width: calc( var(--cardWidth) * 0.9);
+  }
+
+  .card-descriptor {
+    display: flex;
+    flex-direction: row;
+    height: calc( var(--cardHeight) - var(--cardWidth) );
+    width: 100%;
+  }
+
+  .card-descriptor-left {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-grow: 1;
+  }
+
+  .card-descriptor-left h1 {
+    font-size: calc( var(--cardWidth) * 0.12);
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+
+  .card-descriptor-left h2 {
+    font-size: calc( var(--cardWidth) * 0.06);
+    margin-top: 0;
+    flex-grow: 1;
+  }
+
+  .event-details-bar {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    font-size: calc( var(--cardWidth) * 0.04);
+  }
+  .event-details-bar .text {
+    padding: 0.25em 0.5em;
+  }
+  .event-details-bar .seperator {
+    width: 2em;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+    background-size: 4px 4px;
+    background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+  }
+
+
+  .card-descriptor-right {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    height:100%;
+  }
+
+  .ufinity-logo {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    height: calc( var(--cardHeight) * 0.06);
+    width: calc( var(--cardHeight) * 0.06 * 3);
+    border-radius: 1em;
+    object-fit: cover;
+  }
+</style>
