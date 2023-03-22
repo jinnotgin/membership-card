@@ -17,8 +17,8 @@
 
   const _dispatchResize = () => {
     const isPortrait = window.innerHeight > window.innerWidth;
-    const viewportPercent_height = 0.8;
-    const viewportPercent_width = 0.7;
+    const viewportPercent_height = 0.85;
+    const viewportPercent_width = 0.75;
     const cardHeightRatio = 1.5;
 
     if (isPortrait) {
