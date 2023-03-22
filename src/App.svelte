@@ -21,6 +21,9 @@
 
 <main>
   <Card {name} {slogan} {qrData} {footer1} {footer2} />
+  <footer>
+    <a href="https://github.com/jinnotgin/membership-card" target="_blank" rel="noreferrer" title="Jin, 2023">Github Source</a>
+  </footer>
 </main>
 
 <style>
@@ -28,5 +31,15 @@
     background: rgb(244, 238, 233);
     overflow-y: hidden;
     color: rgb(28, 47, 62);
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.25em 0.5em;
+    background: white;
+  }
+  footer a {
+    color: black;
   }
 </style>
