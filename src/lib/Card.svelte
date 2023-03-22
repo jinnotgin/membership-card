@@ -81,7 +81,6 @@
 
 <style>
   .card-container {
-    height: calc( var(--cardHeight) );
     width: calc( var(--cardWidth) );
     border: 1px solid lightgrey;
     border-radius: calc( var(--cardWidth) * 0.05);;
