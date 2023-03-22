@@ -16,15 +16,17 @@
   let cardWidth;
 
   const _dispatchResize = () => {
+    const isPortrait = window.innerHeight > window.innerWidth;
     const viewportPercent_height = 0.8;
     const viewportPercent_width = 0.7;
     const cardHeightRatio = 1.5;
 
-    cardHeight = window.innerHeight * viewportPercent_height;
-    cardWidth = cardHeight / cardHeightRatio;
-    if (cardWidth > window.innerWidth) {
+    if (isPortrait) {
       cardWidth = window.innerWidth * viewportPercent_width;
       cardHeight = cardWidth * cardHeightRatio;
+    } else {
+      cardHeight = window.innerHeight * viewportPercent_height;
+      cardWidth = cardHeight / cardHeightRatio;
     }
   }
   _dispatchResize();
