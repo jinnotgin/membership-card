@@ -1,11 +1,12 @@
 <script>
   export let name, slogan, qrData, footer1, footer2;
 
-	import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
   import QrCode from "svelte-qrcode";
 
   const isMobile = window.matchMedia('only screen and ((max-width: 767px) or (max-height: 767px))').matches;
+
   const tiltOptions = {
     scale: isMobile ? 1.0 : 1.1,
   }
@@ -59,8 +60,11 @@
 	});
 
   // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
+  const hoverOpacity = isMobile ? 0 : 1;
   const mouse = { x: 0, y: 0 }
   const handleMousemove = event => {
+    if (isMobile) return false;
+
     const { currentTarget: target } = event;
     const rect = target.getBoundingClientRect();
 
@@ -75,7 +79,7 @@
   class="card-container" 
   on:mousemove={handleMousemove} 
   use:tilt={tiltOptions} 
-  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
 >
   <div class="card-content">
     <div>
@@ -122,6 +126,7 @@
   }
 
   .card-container::before {
+    opacity: var(--hoverOpacity);
     background: radial-gradient(
       800px circle at var(--mouseX) var(--mouseY), 
       rgba(255, 255, 255, 0.3), 
