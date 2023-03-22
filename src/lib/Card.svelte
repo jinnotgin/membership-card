@@ -2,7 +2,8 @@
   // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
 
 	import { onMount } from 'svelte';
-  import { tilt } from "./effects.js"
+  import { tilt } from "./effects.js";
+  import QrCode from "svelte-qrcode";
 
   const isMobile = window.matchMedia('only screen and ((max-width: 767px) or (max-height: 767px))').matches;
   const tiltOptions = {
@@ -25,6 +26,7 @@
       cardHeight = cardWidth * cardHeightRatio;
     }
   }
+  _dispatchResize();
 
   let dispatchResize_debounce;
   const dispatchResize = () => {
@@ -61,7 +63,10 @@
 
 <div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
   <div class="card-content">
-    <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/>
+    <div >
+      <QrCode class="card-image" size={cardWidth} value="https://github.com/" errorCorrection="H" />
+    </div>
+    <!-- <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/> -->
     <div class="card-descriptor">
       <div class="card-descriptor-left">
         <h1>Jin</h1>
@@ -82,6 +87,9 @@
 
 
 <style>
+  :global(img.qrcode) {
+    width: 100%;
+  }
   .card-container {
     width: calc( var(--cardWidth) );
     height: calc( var(--cardHeight) );
@@ -89,6 +97,7 @@
     border-radius: calc( var(--cardWidth) * 0.05);
     background: rgb(255, 252, 232);
     display: flex;
+    user-select: none;
   }
 
   .card-content {
