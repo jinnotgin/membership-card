@@ -1,5 +1,5 @@
 <script>
-  export let name, slogan, qrData, footer1, footer2;
+  export let name, slogan, qrData, footer1, footer2, logo, bgColourHex;
 
   import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
@@ -79,10 +79,10 @@
   class="card-container" 
   on:mousemove={handleMousemove} 
   use:tilt={tiltOptions} 
-  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+  style="--bgColourHex:#{bgColourHex}; --cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
 >
   <div class="card-content">
-    <div>
+    <div class="card-image">
       <QrCode size={cardWidth} padding={cardWidth*0.02} value={qrData} errorCorrection="H" />
     </div>
     <!-- <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/> -->
@@ -98,7 +98,7 @@
           </div>  
         </div>
         <div class="card-footer-right">
-          <img class="ufinity-logo" alt="Ufinity Logo" src="https://media.glassdoor.com/sqll/385955/ufinity-singapore-squareLogo-1667211661299.png" />
+          <img class="logo-image" alt="logo" src={logo} />
         </div>  
       </div>
     </div>   
@@ -119,7 +119,7 @@
     height: calc( var(--cardHeight) );
     border: 1px solid lightgrey;
     border-radius: calc( var(--cardWidth) * 0.05);
-    background: rgb(255, 252, 232);
+    background: var(--bgColourHex);
     display: flex;
     user-select: none;
     position: relative;
@@ -220,7 +220,7 @@
     height:100%;
   }
 
-  .ufinity-logo {
+  .logo-image {
     height: calc( var(--cardHeight) * 0.06);
     width: calc( var(--cardHeight) * 0.06 * 3);
     border-radius: 1em;
