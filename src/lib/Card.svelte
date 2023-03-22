@@ -1,6 +1,6 @@
 <script>
   // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
-  export let name, slogan, qrData, eventDate, eventTime;
+  export let name, slogan, qrData, footer1, footer2;
 
 	import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
@@ -76,9 +76,9 @@
       <div class="card-footer">
         <div class="card-footer-left">
           <div class="event-details-bar">
-            <span class="text">{eventDate}</span>
+            <span class="text">{footer1}</span>
             <div class="seperator"></div>
-            <span class="text">{eventTime}</span>
+            <span class="text">{footer2}</span>
           </div>  
         </div>
         <div class="card-footer-right">

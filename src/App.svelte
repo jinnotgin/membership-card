@@ -4,23 +4,23 @@
   const urlParams = new URLSearchParams(window.location.search);
   let name = urlParams.get('name') ? urlParams.get('name') : "Jin";
   let slogan = urlParams.get('slogan') ? urlParams.get('slogan') : "Consultant, Corporate Strategy";
-  let eventDate = urlParams.get('eventdate') ? urlParams.get('eventdate') : "21 May 23";
-  let eventTime = urlParams.get('eventtime') ? urlParams.get('eventtime') : "1:30pm";
+  let footer1 = urlParams.get('footer1') ? urlParams.get('footer1') : "21 May 23";
+  let footer2 = urlParams.get('footer2') ? urlParams.get('footer2') : "1:30pm";
 
   let seed = urlParams.get('seed') ? urlParams.get('seed') : "AF000001";
-  let additionalData = {};
+  let data = {};
   try {
-    additionalData = urlParams.get('data') ? JSON.parse(urlParams.get('data')) : {};
+    data = urlParams.get('data') ? JSON.parse(urlParams.get('data')) : {};
   } catch (e) {
     console.error(e);
   }
   let qrData = JSON.stringify({
-    name, seed, ...additionalData
+    name, seed, ...data
   });
 </script>
 
 <main>
-  <Card {name} {slogan} {qrData} {eventDate} {eventTime} />
+  <Card {name} {slogan} {qrData} {footer1} {footer2} />
 </main>
 
 <style>
