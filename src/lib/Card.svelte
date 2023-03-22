@@ -35,8 +35,9 @@
     dispatchResize_debounce = setTimeout(_dispatchResize, 500);
   }
 
+  // user feedback was that motion prompt was scary. hence, decided to forgo iOS devices all together
   // https://github.com/micku7zu/vanilla-tilt.js/issues/71#issuecomment-769294652
-  const deviceMotionPermissionRequestor = () => {
+  /*const deviceMotionPermissionRequestor = () => {
   try {
         //try block bc Safari
         if (typeof DeviceMotionEvent.requestPermission === "function") {
@@ -53,7 +54,7 @@
           // handle regular non iOS 13+ devices
         }
       } catch (e) {}
-  }
+  }*/
 
 	onMount(async () => {
     dispatchResize();
