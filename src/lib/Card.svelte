@@ -22,10 +22,10 @@
     const viewportPercent_width = 0.75;
     const cardHeightRatio = 1.5;
 
-    cardWidth = window.innerWidth * viewportPercent_width;
+    cardWidth = viewport.width * viewportPercent_width;
     cardHeight = cardWidth * cardHeightRatio;
     if (cardHeight > viewport.height * viewportPercent_height) {
-      cardHeight = window.innerHeight * viewportPercent_height;
+      cardHeight = viewport.height * viewportPercent_height;
       cardWidth = cardHeight / cardHeightRatio;
     }
   }
