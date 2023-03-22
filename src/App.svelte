@@ -3,7 +3,7 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   let name = urlParams.get('name') ? urlParams.get('name') : "Jin";
-  let slogan = urlParams.get('slogan') ? urlParams.get('slogan') : "Lead Business Analyst";
+  let slogan = urlParams.get('slogan') ? urlParams.get('slogan') : "Consultant, Corporate Strategy";
   let eventDate = urlParams.get('eventdate') ? urlParams.get('eventdate') : "21 May 23";
   let eventTime = urlParams.get('eventtime') ? urlParams.get('eventtime') : "1:30pm";
 

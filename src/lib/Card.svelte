@@ -141,9 +141,10 @@
     flex-grow: 1;
     text-align: left;
     width: 100%;
-    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
     overflow: hidden;
-    white-space: nowrap;
   }
 
   .card-footer {
