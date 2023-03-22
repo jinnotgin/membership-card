@@ -10,5 +10,6 @@
   :root {
     background: rgb(244, 238, 233);
     overflow-y: hidden;
+    color: rgb(28, 47, 62);
   }
 </style>
