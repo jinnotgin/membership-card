@@ -15,7 +15,7 @@
   let cardWidth;
 
   const _dispatchResize = () => {
-    const ratio = 0.80;
+    const ratio = 0.75;
 
     cardHeight = window.innerHeight * ratio;
     cardWidth = cardHeight * ratio / 3.5 * 2.5;
@@ -25,10 +25,10 @@
     }
   }
 
-  let dispatchResize_timeout;
+  let dispatchResize_debounce;
   const dispatchResize = () => {
-    clearInterval(dispatchResize_timeout);
-    dispatchResize_timeout = setTimeout(_dispatchResize, 400);
+    clearInterval(dispatchResize_debounce);
+    dispatchResize_debounce = setTimeout(_dispatchResize, 500);
   }
 
   // https://github.com/micku7zu/vanilla-tilt.js/issues/71#issuecomment-769294652
