@@ -34,9 +34,10 @@
 
   main {
     height: 100vh;
+    display: flex;
+    align-items: center;
   }
-  footer {
-  }
+  
   footer a {
     color: inherit;
     text-decoration: underline;
