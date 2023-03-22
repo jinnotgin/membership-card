@@ -4,8 +4,9 @@
 	import { onMount } from 'svelte';
   import { tilt } from "./effects.js"
 
+  const isMobile = window.matchMedia('only screen and ((max-width: 767px) or (max-height: 767px))').matches;
   const tiltOptions = {
-    scale: 1.1,
+    scale: isMobile ? 1.0 : 1.1,
     // glare: true,
     // "max-glare": 0.8,
   }
