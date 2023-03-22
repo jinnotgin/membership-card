@@ -38,6 +38,9 @@
     align-items: center;
   }
   
+  footer {
+    padding-top: 2em;
+  }
   footer a {
     color: inherit;
     text-decoration: underline;
