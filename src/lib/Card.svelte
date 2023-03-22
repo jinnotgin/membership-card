@@ -1,5 +1,4 @@
 <script>
-  // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
   export let name, slogan, qrData, footer1, footer2;
 
 	import { onMount } from 'svelte';
@@ -9,8 +8,6 @@
   const isMobile = window.matchMedia('only screen and ((max-width: 767px) or (max-height: 767px))').matches;
   const tiltOptions = {
     scale: isMobile ? 1.0 : 1.1,
-    // glare: true,
-    // "max-glare": 0.8,
   }
 
   let cardHeight;
@@ -60,11 +57,26 @@
 	onMount(async () => {
     dispatchResize();
 	});
+
+  // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
+  const mouse = { x: 0, y: 0 }
+  const handleMousemove = event => {
+    const { currentTarget: target } = event;
+    const rect = target.getBoundingClientRect();
+
+		mouse.x = event.clientX - rect.left;
+		mouse.y = event.clientY - rect.top;
+	}
 </script>
 
 <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} />
 
-<div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
+<div 
+  class="card-container" 
+  on:mousemove={handleMousemove} 
+  use:tilt={tiltOptions} 
+  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+>
   <div class="card-content">
     <div>
       <QrCode size={cardWidth} padding={cardWidth*0.02} value={qrData} errorCorrection="H" />
@@ -106,6 +118,23 @@
     background: rgb(255, 252, 232);
     display: flex;
     user-select: none;
+    position: relative;
+  }
+
+  .card-container::before {
+    background: radial-gradient(
+      800px circle at var(--mouseX) var(--mouseY), 
+      rgba(255, 255, 255, 0.3), 
+      transparent 40%
+    );
+    border-radius: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
   }
 
   .card-content {
