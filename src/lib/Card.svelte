@@ -1,5 +1,4 @@
 <script>
-  // TODO: 3D Tilting Card Effect with Mouse Tracking https://www.youtube.com/watch?v=Z-3tPXf9a7M OR https://www.youtube.com/watch?v=eOJTj_mWJds
   // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
 
   import { tilt } from "./effects.js"
@@ -27,8 +26,8 @@
 
   const tiltOptions = {
     scale: 1.1,
-    glare: true,
-    "max-glare": 0.8,
+    // glare: true,
+    // "max-glare": 0.8,
   }
 </script>
 
@@ -36,10 +35,10 @@
 
 <div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
   <div class="card-content">
-    <img class="card-image" src="https://picsum.photos/2000" alt="QR Code"/>
+    <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/>
     <div class="card-descriptor">
       <div class="card-descriptor-left">
-        <h1>Jin</h1>
+        <h1>Jin Lin</h1>
         <h2>Sincere Wizard</h2>
         <div class="event-details-bar">
           <span class="text">21 May 23</span>
@@ -67,13 +66,13 @@
   }
 
   .card-content {
-    margin: calc( var(--cardWidth) * 0.1 / 2);
     height: 100%; 
+    margin: calc( var(--cardWidth) * 0.1 / 2);
+    width: calc( var(--cardWidth) * 0.9 );
   }
   
   .card-image {
-    height: calc( var(--cardWidth) * 0.9);
-    width: calc( var(--cardWidth) * 0.9);
+    width: 100%;
   }
 
   .card-descriptor {
@@ -88,18 +87,29 @@
     flex-direction: column;
     align-items: start;
     flex-grow: 1;
+    max-width: calc( var(--cardWidth) * 0.61);
   }
 
   .card-descriptor-left h1 {
     font-size: calc( var(--cardWidth) * 0.12);
     margin-top: 0.5em;
     margin-bottom: 0;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
   }
 
   .card-descriptor-left h2 {
     font-size: calc( var(--cardWidth) * 0.06);
     margin-top: 0;
     flex-grow: 1;
+    text-align: left;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .event-details-bar {
