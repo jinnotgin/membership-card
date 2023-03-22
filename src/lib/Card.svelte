@@ -15,7 +15,7 @@
   let cardWidth;
 
   const _dispatchResize = () => {
-    const ratio = 0.85;
+    const ratio = 0.80;
 
     cardHeight = window.innerHeight * ratio;
     cardWidth = cardHeight * ratio / 3.5 * 2.5;
