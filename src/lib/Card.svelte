@@ -5,7 +5,8 @@
   import { tilt } from "./effects.js";
   import QrCode from "svelte-qrcode";
 
-  const isTouchDevice = ('ontouchstart' in document.documentElement);
+  // https://stackoverflow.com/a/36673184
+  const isTouchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
 
   const tiltOptions = {
     scale: isTouchDevice ? 1.0 : 1.1,
