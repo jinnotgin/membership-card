@@ -29,13 +29,33 @@
     clearInterval(dispatchResize_timeout);
     dispatchResize_timeout = setTimeout(_dispatchResize, 400);
   }
-  
+
+  // https://github.com/micku7zu/vanilla-tilt.js/issues/71#issuecomment-769294652
+  const deviceMotionPermissionRequestor = () => {
+  try {
+        //try block bc Safari
+        if (typeof DeviceMotionEvent.requestPermission === "function") {
+          DeviceMotionEvent.requestPermission()
+            .then((permissionState) => {
+              if (permissionState === "granted") {
+                window.addEventListener("devicemotion", (e) => {
+                  console.log(e);
+                });
+              }
+            })
+            .catch(console.error);
+        } else {
+          // handle regular non iOS 13+ devices
+        }
+      } catch (e) {}
+  }
+
 	onMount(async () => {
     dispatchResize();
 	});
 </script>
 
-<svelte:window on:resize={dispatchResize} />
+<svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} />
 
 <div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
   <div class="card-content">
