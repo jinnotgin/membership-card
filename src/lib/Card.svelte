@@ -74,7 +74,8 @@
 	}
 </script>
 
-<svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} />
+<!-- <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} /> -->
+<svelte:window on:resize={dispatchResize} />
 
 <div 
   class="card-container" 
