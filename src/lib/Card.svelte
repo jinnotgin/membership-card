@@ -1,7 +1,14 @@
 <script>
   // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
 
+	import { onMount } from 'svelte';
   import { tilt } from "./effects.js"
+
+  const tiltOptions = {
+    scale: 1.1,
+    // glare: true,
+    // "max-glare": 0.8,
+  }
 
   let cardHeight;
   let cardWidth;
@@ -22,13 +29,10 @@
     clearInterval(dispatchResize_timeout);
     dispatchResize_timeout = setTimeout(_dispatchResize, 400);
   }
-  dispatchResize();
-
-  const tiltOptions = {
-    scale: 1.1,
-    // glare: true,
-    // "max-glare": 0.8,
-  }
+  
+	onMount(async () => {
+    dispatchResize();
+	});
 </script>
 
 <svelte:window on:resize={dispatchResize} />
