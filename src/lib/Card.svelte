@@ -1,5 +1,6 @@
 <script>
   // TODO: to implement hover effect on https://www.youtube.com/watch?v=htGfnF1zN4g
+  export let name, slogan, qrData, eventDate, eventTime;
 
 	import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
@@ -16,15 +17,14 @@
   let cardWidth;
 
   const _dispatchResize = () => {
-    const isPortrait = window.innerHeight > window.innerWidth;
-    const viewportPercent_height = 0.85;
+    const viewport = window.visualViewport;
+    const viewportPercent_height = 0.80;
     const viewportPercent_width = 0.75;
     const cardHeightRatio = 1.5;
 
-    if (isPortrait) {
-      cardWidth = window.innerWidth * viewportPercent_width;
-      cardHeight = cardWidth * cardHeightRatio;
-    } else {
+    cardWidth = window.innerWidth * viewportPercent_width;
+    cardHeight = cardWidth * cardHeightRatio;
+    if (cardHeight > viewport.height * viewportPercent_height) {
       cardHeight = window.innerHeight * viewportPercent_height;
       cardWidth = cardHeight / cardHeightRatio;
     }
@@ -66,23 +66,25 @@
 
 <div class="card-container" use:tilt={tiltOptions} style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px" >
   <div class="card-content">
-    <div >
-      <QrCode class="card-image" size={cardWidth} value="https://github.com/" errorCorrection="H" />
+    <div>
+      <QrCode size={cardWidth} padding={cardWidth*0.02} value={qrData} errorCorrection="H" />
     </div>
     <!-- <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/> -->
     <div class="card-descriptor">
-      <div class="card-descriptor-left">
-        <h1>Jin</h1>
-        <h2>Sincere Wizard</h2>
-        <div class="event-details-bar">
-          <span class="text">21 May 23</span>
-          <div class="seperator"></div>
-          <span class="text">1:30pm</span>
+      <h1>{name}</h1>
+      <h2>{slogan}</h2>
+      <div class="card-footer">
+        <div class="card-footer-left">
+          <div class="event-details-bar">
+            <span class="text">{eventDate}</span>
+            <div class="seperator"></div>
+            <span class="text">{eventTime}</span>
+          </div>  
+        </div>
+        <div class="card-footer-right">
+          <img class="ufinity-logo" alt="Ufinity Logo" src="https://media.glassdoor.com/sqll/385955/ufinity-singapore-squareLogo-1667211661299.png" />
         </div>  
       </div>
-      <div class="card-descriptor-right">
-        <img class="ufinity-logo" alt="Ufinity Logo" src="https://media.glassdoor.com/sqll/385955/ufinity-singapore-squareLogo-1667211661299.png" />
-      </div>  
     </div>   
   </div> 
   
@@ -92,7 +94,10 @@
 <style>
   :global(img.qrcode) {
     width: 100%;
+    border: calc( var(--cardWidth) * 0.01) dashed rgb(25, 42, 54);
+    border-radius: calc( var(--cardWidth) * 0.015);
   }
+
   .card-container {
     width: calc( var(--cardWidth) );
     height: calc( var(--cardHeight) );
@@ -109,27 +114,15 @@
     width: calc( var(--cardWidth) * 0.85 );
   }
   
-  .card-image {
-    width: 100%;
-    border-radius: calc( var(--cardWidth) * 0.015);;
-  }
-
   .card-descriptor {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: calc( var(--cardHeight) - var(--cardWidth) );
     width: 100%;
-  }
-
-  .card-descriptor-left {
-    display: flex;
-    flex-direction: column;
     align-items: start;
-    flex-grow: 1;
-    max-width: calc( var(--cardWidth) * 0.61);
   }
 
-  .card-descriptor-left h1 {
+  .card-descriptor h1 {
     font-size: calc( var(--cardWidth) * 0.09);
     margin-top: 0.25em;
     margin-bottom: 0;
@@ -140,7 +133,7 @@
     overflow: hidden;
   }
 
-  .card-descriptor-left h2 {
+  .card-descriptor h2 {
     font-family: monospace;
     font-weight: 200;
     font-size: calc( var(--cardWidth) * 0.05);
@@ -151,6 +144,19 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .card-footer {
+    width: 100%;
+    display: flex;
+    align-items: end;
+  }
+
+  .card-footer-left {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-grow: 1;
   }
 
   .event-details-bar {
@@ -172,7 +178,7 @@
     background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
   }
 
-  .card-descriptor-right {
+  .card-footer-right {
     display: flex;
     align-items: end;
     justify-content: end;
@@ -180,9 +186,6 @@
   }
 
   .ufinity-logo {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
     height: calc( var(--cardHeight) * 0.06);
     width: calc( var(--cardHeight) * 0.06 * 3);
     border-radius: 1em;
