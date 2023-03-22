@@ -16,7 +16,7 @@
   let cardWidth;
 
   const _dispatchResize = () => {
-    const viewportRatio = 0.75;
+    const viewportRatio = 0.7;
     const cardHeightRatio = 1.5;
 
     cardHeight = window.innerHeight * viewportRatio;
