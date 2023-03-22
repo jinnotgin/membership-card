@@ -17,14 +17,13 @@
 
   const _dispatchResize = () => {
     const viewport = window.visualViewport;
-    const viewportPercent_height = 0.80;
-    const viewportPercent_width = 0.75;
+    const viewportPercent = 0.80;
     const cardHeightRatio = 1.5;
 
-    cardWidth = viewport.width * viewportPercent_width;
+    cardWidth = viewport.width * viewportPercent;
     cardHeight = cardWidth * cardHeightRatio;
-    if (cardHeight > viewport.height * viewportPercent_height) {
-      cardHeight = viewport.height * viewportPercent_height;
+    if (cardHeight > viewport.height * viewportPercent) {
+      cardHeight = viewport.height * viewportPercent;
       cardWidth = cardHeight / cardHeightRatio;
     }
   }
