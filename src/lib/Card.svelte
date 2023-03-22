@@ -15,13 +15,14 @@
   let cardWidth;
 
   const _dispatchResize = () => {
-    const ratio = 0.75;
+    const viewportRatio = 0.75;
+    const cardHeightRatio = 1.5;
 
-    cardHeight = window.innerHeight * ratio;
-    cardWidth = cardHeight * ratio / 3.5 * 2.5;
+    cardHeight = window.innerHeight * viewportRatio;
+    cardWidth = cardHeight / cardHeightRatio;
     if (cardWidth > window.innerWidth) {
-      cardWidth = window.innerWidth * ratio;
-      cardHeight = cardWidth / 2.5 * 3.5;
+      cardWidth = window.innerWidth * viewportRatio;
+      cardHeight = cardWidth * cardHeightRatio;
     }
   }
 
@@ -63,7 +64,7 @@
     <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/>
     <div class="card-descriptor">
       <div class="card-descriptor-left">
-        <h1>Jin Lin</h1>
+        <h1>Jin</h1>
         <h2>Sincere Wizard</h2>
         <div class="event-details-bar">
           <span class="text">21 May 23</span>
@@ -83,20 +84,22 @@
 <style>
   .card-container {
     width: calc( var(--cardWidth) );
+    height: calc( var(--cardHeight) );
     border: 1px solid lightgrey;
-    border-radius: calc( var(--cardWidth) * 0.05);;
+    border-radius: calc( var(--cardWidth) * 0.05);
     background: rgb(255, 252, 232);
     display: flex;
   }
 
   .card-content {
     height: 100%; 
-    margin: calc( var(--cardWidth) * 0.1 / 2);
-    width: calc( var(--cardWidth) * 0.9 );
+    margin: calc( var(--cardWidth) * 0.15 / 2.5) calc( var(--cardWidth) * 0.15 / 2);
+    width: calc( var(--cardWidth) * 0.85 );
   }
   
   .card-image {
     width: 100%;
+    border-radius: calc( var(--cardWidth) * 0.015);;
   }
 
   .card-descriptor {
@@ -115,8 +118,8 @@
   }
 
   .card-descriptor-left h1 {
-    font-size: calc( var(--cardWidth) * 0.12);
-    margin-top: 0.5em;
+    font-size: calc( var(--cardWidth) * 0.09);
+    margin-top: 0.25em;
     margin-bottom: 0;
     text-align: left;
     display: -webkit-box;
@@ -126,7 +129,9 @@
   }
 
   .card-descriptor-left h2 {
-    font-size: calc( var(--cardWidth) * 0.06);
+    font-family: monospace;
+    font-weight: 200;
+    font-size: calc( var(--cardWidth) * 0.05);
     margin-top: 0;
     flex-grow: 1;
     text-align: left;
@@ -138,22 +143,22 @@
 
   .event-details-bar {
     display: flex;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 0.25rem;
     font-size: calc( var(--cardWidth) * 0.04);
+    font-weight: 600;
   }
   .event-details-bar .text {
-    padding: 0.25em 0.5em;
+    padding: 0.15em 0.5em;
   }
   .event-details-bar .seperator {
-    width: 2em;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    width: 1.5em;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
     background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
     background-size: 4px 4px;
     background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
   }
-
 
   .card-descriptor-right {
     display: flex;
