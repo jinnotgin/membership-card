@@ -61,10 +61,12 @@
 	});
 
   // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
-  const hoverOpacity = isTouchDevice ? 0 : 1;
+  let isMouseIn = false;
+  $: hoverOpacity = (isTouchDevice || !isMouseIn) ? 0 : 1;
   const mouse = { x: 0, y: 0 }
   const handleMousemove = event => {
     if (isTouchDevice) return false;
+    isMouseIn = true;
 
     const { currentTarget: target } = event;
     const rect = target.getBoundingClientRect();
@@ -72,11 +74,14 @@
 		mouse.x = event.clientX - rect.left;
 		mouse.y = event.clientY - rect.top;
 	}
+  const handleMouseout = event => {
+    if (isTouchDevice) return false;
+    isMouseIn = false;
+	}
 </script>
 
 <!-- <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} /> -->
 <svelte:window on:resize={dispatchResize} />
-
 <div 
   class="card-container" 
   use:tilt={tiltOptions} 
@@ -84,6 +89,7 @@
 >
   <div class="card-content"
   on:mousemove={handleMousemove} 
+  on:mouseout={handleMouseout} 
   style="--hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
   >
     <div class="card-image">
