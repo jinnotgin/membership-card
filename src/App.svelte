@@ -13,15 +13,14 @@
   let logo = urlParams.get('logo') ? urlParams.get('logo') : "https://i.imgur.com/nfhw22v.png";
   let color = urlParams.get('color') ? urlParams.get('color') : 'fffce8';
 
-  let seed = urlParams.get('seed') ? urlParams.get('seed') : "AF000001";
   let data = {};
   try {
-    data = urlParams.get('data') ? JSON.parse(urlParams.get('data')) : {};
+    data = urlParams.get('data') ? JSON.parse(urlParams.get('data')) : {"id": "AF000001"};
   } catch (e) {
     console.error(e);
   }
   let qrData = JSON.stringify({
-    name, seed, ...data
+    name, ...data
   });
 
   $: colorHex = `#${color.replace("#","")}`;

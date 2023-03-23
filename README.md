@@ -9,8 +9,7 @@ Demo: https://membership-card.pages.dev/
 - `footer1`
 - `footer2`
 - `logo`
-- `bgcolourhex`
-- `seed`
+- `color`
 - `data`
 
-> Sample URL: `https://membership-card.pages.dev/?name=Nicole&slogan=Cool Tea Lady&footer1=29 Dec 23&footer2=12:00AM&logo=https://i.imgur.com/w0U4OVv.jpg&bgcolourhex=d0dbe9&seed=nicole123&data={"id":123}`
+> Sample URL: `https://membership-card.pages.dev/?name=Nicole&slogan=Cool Tea Lady&footer1=29 Dec 23&footer2=12:00AM&logo=https://i.imgur.com/w0U4OVv.jpg&color=d0dbe9&data={"id":nicole123}`
