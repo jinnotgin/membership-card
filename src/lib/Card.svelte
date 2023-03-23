@@ -90,6 +90,7 @@
   <div class="card-content"
   on:mousemove={handleMousemove} 
   on:mouseout={handleMouseout} 
+  on:blur={handleMouseout} 
   style="--hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
   >
     <div class="card-image">
@@ -120,7 +121,7 @@
 <style>
   :global(img.qrcode) {
     width: 98%;
-    border: calc( var(--cardWidth) * 0.01) dashed rgb(25, 42, 54);
+    border: calc( var(--cardWidth) * 0.01) dashed var(--color-text);
     border-radius: calc( var(--cardWidth) * 0.015);
   }
 
@@ -129,7 +130,7 @@
     height: calc( var(--cardHeight) );
     border: 1px solid lightgrey;
     border-radius: calc( var(--cardWidth) * 0.05);
-    background: var(--bgColourHex);
+    background: var(--color-background);
     display: flex;
     user-select: none;
     position: relative;
@@ -139,6 +140,7 @@
     height: 100%; 
     padding: calc( var(--cardWidth) * 0.15 / 2.5) calc( var(--cardWidth) * 0.15 / 2);
     width: calc( var(--cardWidth) * 0.85 );
+    color: var(--color-text);
   }
   .card-content::before {
     opacity: var(--hoverOpacity);
@@ -205,7 +207,7 @@
 
   .event-details-bar {
     display: flex;
-    border: 2px solid black;
+    border: 2px solid var(--color-text);
     border-radius: 0.25rem;
     font-size: calc( var(--cardWidth) * 0.04);
     font-weight: 600;
@@ -215,8 +217,8 @@
   }
   .event-details-bar .seperator {
     width: 1.5em;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
+    border-left: 2px solid var(--color-text);
+    border-right: 2px solid var(--color-text);
     background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
     background-size: 4px 4px;
     background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
