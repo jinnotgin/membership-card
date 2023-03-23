@@ -81,11 +81,11 @@
 
   // rotating gradient border effect - degree changer. (not using, currently relying on experimental CSS)
   // rotating colours effect won't be shown on iOS as a result.
-  // let borderDegree = 0;
-  // let borderDegree_interval;
-  // borderDegree_interval = setInterval(() => {
-  //   borderDegree = borderDegree >= 359 ? 0 : borderDegree + 1;
-  // }, 25);
+  // let gradientAngle = 0;
+  // let gradientAngle_interval;
+  // gradientAngle_interval = setInterval(() => {
+  //   gradientAngle = gradientAngle >= 359 ? 0 : gradientAngle + 1;
+  // }, 50);
 </script>
 
 <!-- <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} /> -->
@@ -93,8 +93,8 @@
 <div 
   class="card-container" 
   use:tilt={tiltOptions}
-  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px;"
->
+  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --gradient-angle:180deg;"
+> <!-- defining gradient-angle here is for browsers that dont support @property -->
   <div class="card-content"
   on:mousemove={handleMousemove} 
   on:mouseout={handleMouseout} 
@@ -140,8 +140,9 @@
     inherits: false;
   }
   @keyframes rotation {
-    0%  { --gradient-angle: 0deg; }
-    100%  { --gradient-angle: 360deg; }
+    0%  { --gradient-angle: 180deg; }
+    100%  { --gradient-angle: 540deg; }
+    /* this is set this way, so that on devices that don't support @property, the color looks better */
   }
   .card-container {
     width: calc( var(--cardWidth) );

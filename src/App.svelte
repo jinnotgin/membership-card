@@ -35,8 +35,8 @@
     
     const bgGradients = [
       bgColor.toHslString(), 
-      bgColor.rotate(30).toHslString(), 
-      bgColor.rotate(60).toHslString()
+      bgColor.rotate(15).toHslString(), 
+      bgColor.rotate(40).toHslString()
     ];
 
     return {background, text, bgGradients};
