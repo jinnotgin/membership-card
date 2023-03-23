@@ -24,8 +24,8 @@
   const generateMatchingColors = (colorStr) => {
     const MIN_BRIGHTNESS = 0.70;
     let bgColor = colord(colorStr);
-    if (bgColor.brightness() < MIN_BRIGHTNESS / 2) bgColor = bgColor.lighten(0.3);
-    else if (bgColor.brightness() < MIN_BRIGHTNESS) bgColor = bgColor.lighten(0.15);
+    if (bgColor.brightness() < MIN_BRIGHTNESS / 2) bgColor = bgColor.lighten(0.4);
+    else if (bgColor.brightness() < MIN_BRIGHTNESS) bgColor = bgColor.lighten(0.2);
     const background = bgColor.toHslString();
 
     let textColor = bgColor.invert();
