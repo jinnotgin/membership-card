@@ -79,11 +79,13 @@
 
 <div 
   class="card-container" 
-  on:mousemove={handleMousemove} 
   use:tilt={tiltOptions} 
-  style="--bgColourHex:#{bgColourHex}; --cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+  style="--bgColourHex:#{bgColourHex}; --cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px;"
 >
-  <div class="card-content">
+  <div class="card-content"
+  on:mousemove={handleMousemove} 
+  style="--hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+  >
     <div class="card-image">
       <QrCode size={cardWidth} padding={cardWidth*0.02} value={qrData} errorCorrection="H" />
     </div>
@@ -111,7 +113,7 @@
 
 <style>
   :global(img.qrcode) {
-    width: 100%;
+    width: 98%;
     border: calc( var(--cardWidth) * 0.01) dashed rgb(25, 42, 54);
     border-radius: calc( var(--cardWidth) * 0.015);
   }
@@ -127,7 +129,12 @@
     position: relative;
   }
 
-  .card-container::before {
+  .card-content {
+    height: 100%; 
+    padding: calc( var(--cardWidth) * 0.15 / 2.5) calc( var(--cardWidth) * 0.15 / 2);
+    width: calc( var(--cardWidth) * 0.85 );
+  }
+  .card-content::before {
     opacity: var(--hoverOpacity);
     background: radial-gradient(
       800px circle at var(--mouseX) var(--mouseY), 
@@ -142,12 +149,6 @@
     height: 100%;
     width: 100%;
     z-index: 10;
-  }
-
-  .card-content {
-    height: 100%; 
-    margin: calc( var(--cardWidth) * 0.15 / 2.5) calc( var(--cardWidth) * 0.15 / 2);
-    width: calc( var(--cardWidth) * 0.85 );
   }
   
   .card-descriptor {
