@@ -155,9 +155,9 @@
   .card-container::before {
     content: "";
     position: absolute;
-    inset: calc( var(--cardHeight) * -0.015 );
+    inset: 0;
     z-index: -1;
-    filter: blur(calc( var(--cardWidth) * 0.1 ));
+    filter: blur(calc( var(--cardWidth) * 0.10 ));
   }
   .card-container, 
   .card-container::before {
