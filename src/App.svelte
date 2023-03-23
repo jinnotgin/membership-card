@@ -1,9 +1,6 @@
 <script>
   import Card from './lib/Card.svelte'
-
-  import { colord, extend } from "colord";
-  import harmoniesPlugin from "colord/plugins/harmonies";
-  extend([harmoniesPlugin]);
+  import { colord } from "colord";
 
   const urlParams = new URLSearchParams(window.location.search);
   let name = urlParams.get('name') ? urlParams.get('name') : "Jin";
@@ -11,7 +8,7 @@
   let footer1 = urlParams.get('footer1') ? urlParams.get('footer1') : "21 May 23";
   let footer2 = urlParams.get('footer2') ? urlParams.get('footer2') : "1:30pm";
   let logo = urlParams.get('logo') ? urlParams.get('logo') : "https://i.imgur.com/nfhw22v.png";
-  let color = urlParams.get('color') ? urlParams.get('color') : 'fffce8';
+  let color = urlParams.get('color') ? urlParams.get('color') : '4980c8';
 
   let data = {};
   try {
@@ -25,27 +22,31 @@
 
   $: colorHex = `#${color.replace("#","")}`;
   const generateMatchingColors = (colorStr) => {
-    const inputColor = colord(colorStr);
-
-    const MIN_BRIGHTNESS = 0.7;
-    let bgColor = inputColor;
-    if (inputColor.brightness() < MIN_BRIGHTNESS) bgColor = inputColor.lighten(MIN_BRIGHTNESS - inputColor.brightness());
+    const MIN_BRIGHTNESS = 0.70;
+    let bgColor = colord(colorStr);
+    if (bgColor.brightness() < MIN_BRIGHTNESS / 2) bgColor = bgColor.lighten(0.3);
+    else if (bgColor.brightness() < MIN_BRIGHTNESS) bgColor = bgColor.lighten(0.15);
     const background = bgColor.toHslString();
 
-    const text = bgColor.invert().darken(0.2).toHslString();
+    let textColor = bgColor.invert();
+    if (bgColor.brightness() > 0.5) textColor = textColor.darken(0.3);
+    else textColor = textColor.lighten(0.3);
+    const text = textColor.toHslString();
     
-    let darkColor = inputColor;
-    if (inputColor.isLight()) darkColor = inputColor.darken(inputColor.brightness() - 0.5);
-    const harmonies = darkColor.harmonies("complementary").map((c) => c.toHslString());
+    const bgGradients = [
+      bgColor.toHslString(), 
+      bgColor.rotate(30).toHslString(), 
+      bgColor.rotate(60).toHslString()
+    ];
 
-    return {background, text, harmonies};
+    return {background, text, bgGradients};
   }
   $: colors = generateMatchingColors(colorHex);
 
 </script>
 
 <main 
-style="--color-background:{colors.background}; --color-text:{colors.text}; --colors-harmony1:{colors.harmonies[0]}; --colors-harmony2:{colors.harmonies[1]};"
+style="--color-text:{colors.text}; --color-bgGradient1:{colors.bgGradients[0]}; --color-bgGradient2:{colors.bgGradients[1]}; --color-bgGradient3:{colors.bgGradients[2]};"
 >
   <Card {name} {slogan} {qrData} {footer1} {footer2} {logo} />
 </main>
@@ -55,8 +56,8 @@ style="--color-background:{colors.background}; --color-text:{colors.text}; --col
 
 <style>
   :root {
-    background: rgb(244, 238, 233);
-    color: rgb(28, 47, 62);
+    background: hsl(27 20% 95%);
+    color: hsl(206 38% 18%);
   }
 
   main {
@@ -66,7 +67,7 @@ style="--color-background:{colors.background}; --color-text:{colors.text}; --col
   }
   
   footer {
-    padding-top: 2em;
+    padding-top: 6em;
   }
   footer a {
     color: inherit;

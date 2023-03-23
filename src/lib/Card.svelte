@@ -1,5 +1,5 @@
 <script>
-  export let name, slogan, qrData, footer1, footer2, logo, bgColourHex;
+  export let name, slogan, qrData, footer1, footer2, logo;
 
   import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
@@ -78,14 +78,22 @@
     if (isTouchDevice) return false;
     isMouseIn = false;
 	}
+
+  // rotating gradient border effect - degree changer. (not using, currently relying on experimental CSS)
+  // rotating colours effect won't be shown on iOS as a result.
+  // let borderDegree = 0;
+  // let borderDegree_interval;
+  // borderDegree_interval = setInterval(() => {
+  //   borderDegree = borderDegree >= 359 ? 0 : borderDegree + 1;
+  // }, 25);
 </script>
 
 <!-- <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} /> -->
 <svelte:window on:resize={dispatchResize} />
 <div 
   class="card-container" 
-  use:tilt={tiltOptions} 
-  style="--bgColourHex:#{bgColourHex}; --cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px;"
+  use:tilt={tiltOptions}
+  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px;"
 >
   <div class="card-content"
   on:mousemove={handleMousemove} 
@@ -125,24 +133,54 @@
     border-radius: calc( var(--cardWidth) * 0.015);
   }
 
+  /* rotating circular gradient: https://www.youtube.com/watch?v=-VOUK-xFAyk */
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes rotation {
+    0%  { --gradient-angle: 0deg; }
+    100%  { --gradient-angle: 360deg; }
+  }
   .card-container {
     width: calc( var(--cardWidth) );
     height: calc( var(--cardHeight) );
     border: 1px solid lightgrey;
     border-radius: calc( var(--cardWidth) * 0.05);
-    background: var(--color-background);
     display: flex;
     user-select: none;
     position: relative;
   }
+  .card-container::before {
+    content: "";
+    position: absolute;
+    inset: calc( var(--cardHeight) * -0.015 );
+    z-index: -1;
+    filter: blur(calc( var(--cardWidth) * 0.1 ));
+  }
+  .card-container, 
+  .card-container::before {
+    background: conic-gradient(
+      from var(--gradient-angle),
+      var(--color-bgGradient1),
+      var(--color-bgGradient2),
+      var(--color-bgGradient3),
+      var(--color-bgGradient2),
+      var(--color-bgGradient1)
+    );
+    animation: rotation 15s linear infinite;
+  }
 
   .card-content {
     height: 100%; 
-    padding: calc( var(--cardWidth) * 0.15 / 2.5) calc( var(--cardWidth) * 0.15 / 2);
+    padding: calc( var(--cardWidth) * 0.14 / 2) calc( var(--cardWidth) * 0.16 / 2);
     width: calc( var(--cardWidth) * 0.85 );
     color: var(--color-text);
+    border-radius: inherit;
   }
   .card-content::before {
+    content: "";
     opacity: var(--hoverOpacity);
     background: radial-gradient(
       800px circle at var(--mouseX) var(--mouseY), 
@@ -150,10 +188,8 @@
       transparent 40%
     );
     border-radius: inherit;
-    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     height: 100%;
     width: 100%;
     z-index: 10;
