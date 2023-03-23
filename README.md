@@ -17,5 +17,5 @@ https://user-images.githubusercontent.com/14935308/227180947-30d18f90-538c-4145-
 
 
 ## Known Issues
-- For iOS 14+ devices, the card will *not* tilt based on device's motion. This is becasue iOS 14+ will require explict user permission approval to access Device Motion data. In our user testing, we have found that users are not familiar with the "Device Motion" permission prompt, and was found the prompt to be undesirable.
+- For iOS 14+ devices, the card will *not* tilt based on device's motion. This is becasue iOS 14+ will require explict user permission approval to access Device Motion data. In our user testing, we have found that users are not familiar with the "Device Motion" permission prompt, and hence found the prompt to be undesirable.
 - Some browsers (Desktop Safari, iOS, Firefox) may not see the rotating gradient animation of the card's background. This is due to the lack of browser support for the @property CSS (https://developer.mozilla.org/en-US/docs/Web/CSS/@property). For such devices, you will see a static gradient.
