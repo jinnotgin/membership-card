@@ -5,28 +5,6 @@
   // https://stackoverflow.com/a/36673184
   const isTouchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
 
-  // user feedback was that motion prompt was scary. hence, decided to forgo iOS devices all together
-  // https://github.com/micku7zu/vanilla-tilt.js/issues/71#issuecomment-769294652
-  /*const deviceMotionPermissionRequestor = () => {
-  try {
-        //try block bc Safari
-        if (typeof DeviceMotionEvent.requestPermission === "function") {
-          DeviceMotionEvent.requestPermission()
-            .then((permissionState) => {
-              if (permissionState === "granted") {
-                window.addEventListener("devicemotion", (e) => {
-                  console.log(e);
-                });
-              }
-            })
-            .catch(console.error);
-        } else {
-          // handle regular non iOS 13+ devices
-        }
-      } catch (e) {}
-  }*/
-
-  // hover effect 
   let isMouseIn = false;
   const spotlight = { x: 0, y: 0 }
   const rotation = { x: 0, y: 0 }
