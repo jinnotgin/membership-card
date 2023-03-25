@@ -226,8 +226,8 @@
   }
   .event-details-bar .seperator {
     width: 1.5em;
-    border-left: 2px solid var(--color-text);
-    border-right: 2px solid var(--color-text);
+    border-left: 0.1em solid var(--color-text);
+    border-right: 0.1em solid var(--color-text);
     background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
     background-size: 4px 4px;
     background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
