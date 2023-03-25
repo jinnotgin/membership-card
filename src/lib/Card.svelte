@@ -122,13 +122,6 @@
     user-select: none;
     position: relative;
   }
-
-  @media only screen and (max-width: 576px) {
-    .card-container {
-      height: 100svmin;
-    }
-  }
-
   .card-container::before {
     content: "";
     position: absolute;
@@ -252,5 +245,26 @@
     aspect-ratio: 3.25 / 1;
     border-radius: 1.2svmin;
     object-fit: cover;
+  }
+  @media only screen and (max-width: 576px) {
+    .card-container {
+      height: auto;
+      width: 75svw;
+    }
+    .card-content {
+      padding: 5.45svw 5.8svw;
+    }
+    .card-descriptor h1 {
+      font-size: 7svw;
+    }
+    .card-descriptor h2 {
+      font-size: 4svw;
+    }  
+    .event-details-bar {
+      font-size: 3svw;
+    }
+    .card-image {
+      border: 0.95svw dashed var(--color-text);
+    }
   }
 </style>
