@@ -1,7 +1,6 @@
 <script>
   export let name, slogan, qrData, footer1, footer2, logo;
 
-  import { onMount } from 'svelte';
   import { tilt } from "./effects.js";
   import QrCode from "svelte-qrcode";
 
@@ -10,29 +9,6 @@
 
   const tiltOptions = {
     scale: isTouchDevice ? 1.0 : 1.1,
-  }
-
-  let cardHeight;
-  let cardWidth;
-
-  const _dispatchResize = () => {
-    const viewport = window.visualViewport;
-    const viewportPercent = 0.80;
-    const cardHeightRatio = 1.5;
-
-    cardWidth = viewport.width * viewportPercent;
-    cardHeight = cardWidth * cardHeightRatio;
-    if (cardHeight > viewport.height * viewportPercent) {
-      cardHeight = viewport.height * viewportPercent;
-      cardWidth = cardHeight / cardHeightRatio;
-    }
-  }
-  _dispatchResize();
-
-  let dispatchResize_debounce;
-  const dispatchResize = () => {
-    clearInterval(dispatchResize_debounce);
-    dispatchResize_debounce = setTimeout(_dispatchResize, 500);
   }
 
   // user feedback was that motion prompt was scary. hence, decided to forgo iOS devices all together
@@ -55,10 +31,6 @@
         }
       } catch (e) {}
   }*/
-
-	onMount(async () => {
-    dispatchResize();
-	});
 
   // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
   let isMouseIn = false;
@@ -88,12 +60,11 @@
   // }, 50);
 </script>
 
-<!-- <svelte:window on:resize={dispatchResize} on:click={deviceMotionPermissionRequestor} /> -->
-<svelte:window on:resize={dispatchResize} />
+<!-- <svelte:window on:click={deviceMotionPermissionRequestor} /> -->
 <div 
   class="card-container" 
   use:tilt={tiltOptions}
-  style="--cardHeight:{cardHeight}px; --cardWidth:{cardWidth}px; --gradient-angle:180deg;"
+  style="--gradient-angle:180deg;"
 > <!-- defining gradient-angle here is for browsers that dont support @property -->
   <div class="card-content"
   on:mousemove={handleMousemove} 
@@ -102,7 +73,7 @@
   style="--hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
   >
     <div class="card-image">
-      <QrCode size={cardWidth} padding={cardWidth*0.02} value={qrData} errorCorrection="H" />
+      <QrCode size={1280} padding={36} value={qrData} errorCorrection="H" />
     </div>
     <!-- <img class="card-image" src="https://placekitten.com/2000" alt="QR Code"/> -->
     <div class="card-descriptor">
@@ -128,9 +99,7 @@
 
 <style>
   :global(img.qrcode) {
-    width: 98%;
-    border: calc( var(--cardWidth) * 0.01) dashed var(--color-text);
-    border-radius: calc( var(--cardWidth) * 0.015);
+    height: 100%;
   }
 
   /* rotating circular gradient: https://www.youtube.com/watch?v=-VOUK-xFAyk */
@@ -145,10 +114,10 @@
     /* this is set this way, so that on devices that don't support @property, the color looks better */
   }
   .card-container {
-    width: calc( var(--cardWidth) );
-    height: calc( var(--cardHeight) );
+    height: 80svmin;
+    aspect-ratio: 1 / 1.5;
     border: 1px solid lightgrey;
-    border-radius: calc( var(--cardWidth) * 0.05);
+    border-radius: 2svmin;
     display: flex;
     user-select: none;
     position: relative;
@@ -158,7 +127,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    filter: blur(calc( var(--cardWidth) * 0.10 ));
+    filter: blur( 5svmin );
   }
   .card-container, 
   .card-container::before {
@@ -174,9 +143,8 @@
   }
 
   .card-content {
-    height: 100%; 
-    padding: calc( var(--cardWidth) * 0.14 / 2) calc( var(--cardWidth) * 0.16 / 2);
-    width: calc( var(--cardWidth) * 0.85 );
+    padding: 3.75svmin 4svmin;
+    width: 100%;
     color: var(--color-text);
     border-radius: inherit;
   }
@@ -195,34 +163,39 @@
     width: 100%;
     z-index: 10;
   }
+
+  .card-image {
+    height: 62%;
+    box-sizing: border-box;
+    background: white;
+    border: 0.65svmin dashed var(--color-text);
+    border-radius: 1.5svmin;
+  }
   
   .card-descriptor {
+    height: 38%;
     display: flex;
     flex-direction: column;
-    height: calc( var(--cardHeight) - var(--cardWidth) );
     width: 100%;
     align-items: start;
+    text-align: left;
   }
 
   .card-descriptor h1 {
-    font-size: calc( var(--cardWidth) * 0.09);
+    font-size: 4.75svmin;
     margin-top: 0.25em;
     margin-bottom: 0;
-    text-align: left;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
   }
-
   .card-descriptor h2 {
+    font-size: 2.75svmin;
     font-family: monospace;
     font-weight: 200;
-    font-size: calc( var(--cardWidth) * 0.05);
     margin-top: 0;
     flex-grow: 1;
-    text-align: left;
-    width: 100%;
+  }
+
+  .card-descriptor h1,
+  .card-descriptor h2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;  
@@ -230,6 +203,7 @@
   }
 
   .card-footer {
+    height: 15%;
     width: 100%;
     display: flex;
     align-items: end;
@@ -245,8 +219,8 @@
   .event-details-bar {
     display: flex;
     border: 2px solid var(--color-text);
-    border-radius: 0.25rem;
-    font-size: calc( var(--cardWidth) * 0.04);
+    border-radius: 0.25em;
+    font-size: 2.1svmin;
     font-weight: 600;
   }
   .event-details-bar .text {
@@ -269,9 +243,9 @@
   }
 
   .logo-image {
-    height: calc( var(--cardHeight) * 0.06);
-    width: calc( var(--cardHeight) * 0.06 * 3);
-    border-radius: 1em;
+    height: 100%;
+    aspect-ratio: 3 / 1;
+    border-radius: 1.2svmin;
     object-fit: cover;
   }
 </style>

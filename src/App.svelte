@@ -61,7 +61,7 @@ style="--color-text:{colors.text}; --color-bgGradient1:{colors.bgGradients[0]}; 
   }
 
   main {
-    height: 100vh;
+    height: 100svh;
     display: flex;
     align-items: center;
   }
