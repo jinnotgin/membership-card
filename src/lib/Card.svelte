@@ -99,7 +99,7 @@
 
 <style>
   :global(img.qrcode) {
-    height: 100%;
+    width: 100%;
   }
 
   /* rotating circular gradient: https://www.youtube.com/watch?v=-VOUK-xFAyk */
@@ -165,7 +165,7 @@
   }
 
   .card-image {
-    height: 62%;
+    height: 63%;
     box-sizing: border-box;
     background: white;
     border: 0.65svmin dashed var(--color-text);
@@ -173,7 +173,7 @@
   }
   
   .card-descriptor {
-    height: 38%;
+    height: 37%;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -211,9 +211,7 @@
 
   .card-footer-left {
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    flex-grow: 1;
+    width: 70%;
   }
 
   .event-details-bar {
@@ -239,12 +237,12 @@
     display: flex;
     align-items: end;
     justify-content: end;
-    height:100%;
+    width: 30%;
   }
 
   .logo-image {
-    height: 100%;
-    aspect-ratio: 3 / 1;
+    width: 100%;
+    aspect-ratio: 3.25 / 1;
     border-radius: 1.2svmin;
     object-fit: cover;
   }
