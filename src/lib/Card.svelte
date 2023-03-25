@@ -122,6 +122,13 @@
     user-select: none;
     position: relative;
   }
+
+  @media only screen and (max-width: 576px) {
+    .card-container {
+      height: 100svmin;
+    }
+  }
+
   .card-container::before {
     content: "";
     position: absolute;
