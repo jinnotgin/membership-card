@@ -161,9 +161,9 @@
 
   @keyframes cardAutoRotate {
     0% {transform: perspective(1000px) rotateX(12deg) rotateY(0deg);}
-    25% {transform: perspective(1000px) rotateX(0deg) rotateY(12deg);}
+    30% {transform: perspective(1000px) rotateX(0deg) rotateY(12deg);}
     50% {transform: perspective(1000px) rotateX(-12deg) rotateY(0deg);}
-    75% {transform: perspective(1000px) rotateX(0deg) rotateY(-12deg);}
+    80% {transform: perspective(1000px) rotateX(0deg) rotateY(-12deg);}
     100% {transform: perspective(1000px) rotateX(12deg) rotateY(0deg);}
   }
   .card-container.touch {
