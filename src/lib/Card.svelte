@@ -1,7 +1,5 @@
 <script>
   export let name, slogan, qrData, footer1, footer2, logo;
-
-  import { tilt } from "./effects.js";
   import QrCode from "svelte-qrcode";
 
   // https://stackoverflow.com/a/36673184
@@ -32,24 +30,35 @@
       } catch (e) {}
   }*/
 
-  // hover effect from https://www.youtube.com/watch?v=htGfnF1zN4g
+  // hover effect 
   let isMouseIn = false;
-  $: hoverOpacity = (isTouchDevice || !isMouseIn) ? 0 : 1;
-  const mouse = { x: 0, y: 0 }
+  const spotlight = { x: 0, y: 0 }
+  const rotation = { x: 0, y: 0 }
+  let card_domElement;
   const handleMousemove = event => {
-    if (isTouchDevice) return false;
-    isMouseIn = true;
+    if (isTouchDevice || !isMouseIn) return false;
 
-    const { currentTarget: target } = event;
-    const rect = target.getBoundingClientRect();
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
 
-		mouse.x = event.clientX - rect.left;
-		mouse.y = event.clientY - rect.top;
+    // spotlight (adapted from https://www.youtube.com/watch?v=htGfnF1zN4g)
+    const card_domElement_rect = card_domElement.getBoundingClientRect();
+		spotlight.x = mouseX - card_domElement_rect.left;
+		spotlight.y = mouseY - card_domElement_rect.top;
+
+    // rotation (adapted from https://www.youtube.com/watch?v=Z-3tPXf9a7M)
+    const middleX = card_domElement_rect.width / 2;
+    const middleY = card_domElement_rect.height / 2;
+    
+    const perecentAwayX = (spotlight.x - middleX) / middleX;
+    const perecentAwayY = (spotlight.y - middleY) / middleY;
+    
+    const MAX_TILT_DEGREE = 30;
+    rotation.x = perecentAwayY * MAX_TILT_DEGREE;
+    rotation.y = perecentAwayX * MAX_TILT_DEGREE * -1;
 	}
-  const handleMouseout = event => {
-    if (isTouchDevice) return false;
-    isMouseIn = false;
-	}
+  const handleMouseInCard = event => isMouseIn = true;
+  const handleMouseOutCard = event => isMouseIn = false;
 
   // rotating gradient border effect - degree changer. (not using, currently relying on experimental CSS)
   // rotating colours effect won't be shown on iOS as a result.
@@ -61,16 +70,18 @@
 </script>
 
 <!-- <svelte:window on:click={deviceMotionPermissionRequestor} /> -->
+<svelte:window on:mousemove={handleMousemove} />
 <div 
-  class="card-container" 
-  use:tilt={tiltOptions}
-  style="--gradient-angle:180deg;"
+  class="card-container use:tilt={tiltOptions}" 
+  bind:this={card_domElement}
+  on:mouseover={handleMouseInCard}
+  on:focus={handleMouseInCard}
+  on:mouseout={handleMouseOutCard}
+  on:blur={handleMouseOutCard}
+  style="--gradient-angle:180deg; --rotateX:{rotation.x}deg; --rotateY:{rotation.y}deg"
 > <!-- defining gradient-angle here is for browsers that dont support @property -->
   <div class="card-content"
-  on:mousemove={handleMousemove} 
-  on:mouseout={handleMouseout} 
-  on:blur={handleMouseout} 
-  style="--hoverOpacity:{hoverOpacity}; --mouseX:{mouse.x}px; --mouseY:{mouse.y}px"
+  style="--spotlightX:{spotlight.x}px; --spotlightY:{spotlight.y}px;"
   >
     <div class="card-image">
       <QrCode size={1280} padding={36} value={qrData} errorCorrection="H" />
@@ -100,6 +111,7 @@
 <style>
   :global(img.qrcode) {
     width: 100%;
+    border-radius: inherit;
   }
 
   /* rotating circular gradient: https://www.youtube.com/watch?v=-VOUK-xFAyk */
@@ -116,16 +128,16 @@
   .card-container {
     height: 80svmin;
     aspect-ratio: 1 / 1.5;
-    border: 1px solid lightgrey;
     border-radius: 2svmin;
     display: flex;
     user-select: none;
     position: relative;
+    transition: transform 300ms cubic-bezier(0.03, 0.98, 0.52, 1);
   }
   .card-container::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -2.5%;
     z-index: -1;
     filter: blur( 5svmin );
   }
@@ -141,6 +153,9 @@
     );
     animation: rotation 15s linear infinite;
   }
+  .card-container:hover {
+    transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY)) scale(1.1);
+  }
 
   .card-content {
     padding: 3.75svmin 4svmin;
@@ -148,11 +163,10 @@
     color: var(--color-text);
     border-radius: inherit;
   }
-  .card-content::before {
+  .card-content:hover::before {
     content: "";
-    opacity: var(--hoverOpacity);
     background: radial-gradient(
-      75svmin circle at var(--mouseX) var(--mouseY), 
+      75svmin circle at var(--spotlightX) var(--spotlightY), 
       rgba(255, 255, 255, 0.3), 
       transparent 40%
     );

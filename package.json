@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "colord": "^2.9.3",
-    "svelte-qrcode": "^1.0.0",
-    "vanilla-tilt": "^1.8.0"
+    "svelte-qrcode": "^1.0.0"
   }
 }
