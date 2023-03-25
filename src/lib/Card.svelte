@@ -159,7 +159,7 @@
     content: "";
     opacity: var(--hoverOpacity);
     background: radial-gradient(
-      800px circle at var(--mouseX) var(--mouseY), 
+      75svmin circle at var(--mouseX) var(--mouseY), 
       rgba(255, 255, 255, 0.3), 
       transparent 40%
     );
