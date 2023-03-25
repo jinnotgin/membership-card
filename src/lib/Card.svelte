@@ -43,7 +43,6 @@
   // }, 50);
 </script>
 
-<!-- <svelte:window on:click={deviceMotionPermissionRequestor} /> -->
 <svelte:window on:mousemove={handleMousemove} />
 <div 
   class="card-container {isTouchDevice ? `touch` : `mouse`}" 
