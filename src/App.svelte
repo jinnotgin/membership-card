@@ -67,7 +67,7 @@ style="--color-text:{colors.text}; --color-bgGradient1:{colors.bgGradients[0]}; 
   }
   
   footer {
-    padding-top: 2em;
+    padding-top: 8svh;
   }
   footer a {
     color: inherit;

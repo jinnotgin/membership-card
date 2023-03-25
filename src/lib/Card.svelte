@@ -5,10 +5,6 @@
   // https://stackoverflow.com/a/36673184
   const isTouchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
 
-  const tiltOptions = {
-    scale: isTouchDevice ? 1.0 : 1.1,
-  }
-
   // user feedback was that motion prompt was scary. hence, decided to forgo iOS devices all together
   // https://github.com/micku7zu/vanilla-tilt.js/issues/71#issuecomment-769294652
   /*const deviceMotionPermissionRequestor = () => {
