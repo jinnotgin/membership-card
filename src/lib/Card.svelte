@@ -216,7 +216,7 @@
 
   .event-details-bar {
     display: flex;
-    border: 2px solid var(--color-text);
+    border: 0.1em solid var(--color-text);
     border-radius: 0.25em;
     font-size: 2.1svmin;
     font-weight: 600;
