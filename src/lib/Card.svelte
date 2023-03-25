@@ -72,7 +72,7 @@
 <!-- <svelte:window on:click={deviceMotionPermissionRequestor} /> -->
 <svelte:window on:mousemove={handleMousemove} />
 <div 
-  class="card-container use:tilt={tiltOptions}" 
+  class="card-container {isTouchDevice ? `touch` : `mouse`}" 
   bind:this={card_domElement}
   on:mouseover={handleMouseInCard}
   on:focus={handleMouseInCard}
@@ -120,7 +120,7 @@
     initial-value: 0deg;
     inherits: false;
   }
-  @keyframes rotation {
+  @keyframes bgGradientAngleRotation {
     0%  { --gradient-angle: 180deg; }
     100%  { --gradient-angle: 540deg; }
     /* this is set this way, so that on devices that don't support @property, the color looks better */
@@ -132,7 +132,6 @@
     display: flex;
     user-select: none;
     position: relative;
-    transition: transform 300ms cubic-bezier(0.03, 0.98, 0.52, 1);
   }
   .card-container::before {
     content: "";
@@ -151,10 +150,24 @@
       var(--color-bgGradient2),
       var(--color-bgGradient1)
     );
-    animation: rotation 15s linear infinite;
+    animation: bgGradientAngleRotation 15s linear infinite;
   }
-  .card-container:hover {
+  .card-container.mouse {
+    transition: transform 300ms cubic-bezier(0.03, 0.98, 0.52, 1);
+  }
+  .card-container.mouse:hover {
     transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY)) scale(1.1);
+  }
+
+  @keyframes cardAutoRotate {
+    0% {transform: perspective(1000px) rotateX(10deg) rotateY(0deg);}
+    25% {transform: perspective(1000px) rotateX(0deg) rotateY(10deg);}
+    50% {transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);}
+    75% {transform: perspective(1000px) rotateX(0deg) rotateY(-10deg);}
+    100% {transform: perspective(1000px) rotateX(10deg) rotateY(0deg);}
+  }
+  .card-container.touch {
+    animation: cardAutoRotate 15s linear infinite, bgGradientAngleRotation 15s linear infinite;
   }
 
   .card-content {
@@ -163,7 +176,7 @@
     color: var(--color-text);
     border-radius: inherit;
   }
-  .card-content:hover::before {
+  .card-container.mouse .card-content:hover::before {
     content: "";
     background: radial-gradient(
       75svmin circle at var(--spotlightX) var(--spotlightY), 
