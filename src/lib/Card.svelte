@@ -160,11 +160,11 @@
   }
 
   @keyframes cardAutoRotate {
-    0% {transform: perspective(1000px) rotateX(12deg) rotateY(0deg);}
-    30% {transform: perspective(1000px) rotateX(0deg) rotateY(12deg);}
-    50% {transform: perspective(1000px) rotateX(-12deg) rotateY(0deg);}
-    80% {transform: perspective(1000px) rotateX(0deg) rotateY(-12deg);}
-    100% {transform: perspective(1000px) rotateX(12deg) rotateY(0deg);}
+    0% {transform: perspective(1000px) rotateX(10deg) rotateY(0deg);}
+    30% {transform: perspective(1000px) rotateX(0deg) rotateY(15deg);}
+    50% {transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);}
+    80% {transform: perspective(1000px) rotateX(0deg) rotateY(-15deg);}
+    100% {transform: perspective(1000px) rotateX(10deg) rotateY(0deg);}
   }
   .card-container.touch {
     animation: cardAutoRotate 15s linear infinite, bgGradientAngleRotation 15s linear infinite;
