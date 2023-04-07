@@ -4,7 +4,7 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   let name = urlParams.get('name') ? urlParams.get('name') : "Jin";
-  let slogan = urlParams.get('slogan') ? urlParams.get('slogan') : "Consultant, Corporate Strategy";
+  let slogan = urlParams.get('slogan') ? urlParams.get('slogan') : "Corporate Strategy";
   let footer1 = urlParams.get('footer1') ? urlParams.get('footer1') : "21 May 23";
   let footer2 = urlParams.get('footer2') ? urlParams.get('footer2') : "1:30pm";
   let logo = urlParams.get('logo') ? urlParams.get('logo') : "https://i.imgur.com/nfhw22v.png";
