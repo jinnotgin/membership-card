@@ -2,8 +2,6 @@
 
 Demo: https://membership-card.pages.dev/
 
-https://user-images.githubusercontent.com/14935308/227180947-30d18f90-538c-4145-9e08-4f35dd34e3e8.mp4
-
 ## Modifiable URL Parameters
 
 - `name`
