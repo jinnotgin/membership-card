@@ -123,7 +123,7 @@
       var(--color-bgGradient2),
       var(--color-bgGradient1)
     );
-    animation: bgGradientAngleRotation 15s linear infinite;
+    animation: bgGradientAngleRotation 10s linear infinite;
   }
   .card-container.mouse {
     transition: transform 300ms cubic-bezier(0.03, 0.98, 0.52, 1);
